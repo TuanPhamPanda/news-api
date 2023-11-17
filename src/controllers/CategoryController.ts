@@ -1,7 +1,7 @@
 import { internalServer } from '../middlewares'
 import categoryService from '../services/CategoryService'
 import { Request, Response } from 'express'
-import { idSchema, nameSchema } from '../utils/ValidateSchema'
+import { idSchema, stringSchema } from '../utils'
 import { Category } from '../models'
 import joi from 'joi'
 
@@ -33,7 +33,7 @@ class CategoryController {
   async createCategory(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ name: nameSchema })
+        .object({ name: stringSchema })
         .validate(request.body)
       if (error) {
         return response.status(400).json({ error: error.details[0].message })
@@ -54,7 +54,7 @@ class CategoryController {
       const { name } = request.body
 
       const { error, value } = joi
-        .object({ id: idSchema, name: nameSchema })
+        .object({ id: idSchema, name: stringSchema })
         .validate({ id, name })
       if (error) {
         return response.status(400).json({ error: error.details[0].message })

@@ -39,9 +39,12 @@ const responseFindDatabase = (response: Response): Response => {
   return result
 }
 
+const foldersInCloud = ['new', 'topic', 'user']
+
 export {
   notFoundDatabase,
   internalSeverDatabase,
   responseFindDatabase,
+  foldersInCloud,
   Response,
 }

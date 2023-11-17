@@ -6,6 +6,7 @@ class Topic extends Model {
   declare title: string
   declare description: string
   declare image: string
+  declare filename: string
   declare createdAt: Date
   declare updatedAt: Date
 }
@@ -28,6 +29,10 @@ Topic.init(
     image: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,

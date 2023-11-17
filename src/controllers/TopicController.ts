@@ -1,11 +1,12 @@
-import { internalServer } from '../middlewares'
+import { badRequest, internalServer } from '../middlewares'
 import { topicService } from '../services'
 import { Request, Response } from 'express'
-import { idSchema, nameSchema } from '../utils/ValidateSchema'
+import { idSchema, imageSchema, stringSchema } from '../utils'
 import { Topic } from '../models'
 import joi from 'joi'
+import { cloudinary } from '../configs'
 
-class CategoryController {
+class TopicController {
   async getAllTopic(request: Request, response: Response) {
     try {
       const topics = await topicService.getAll()
@@ -33,17 +34,27 @@ class CategoryController {
   async createTopic(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ name: nameSchema })
-        .validate(request.body)
+        .object({
+          title: stringSchema,
+          description: stringSchema,
+          image: imageSchema,
+        })
+        .validate({
+          ...request.body,
+          image: request.file?.path,
+        })
       if (error) {
+        if (request.file)
+          await cloudinary.uploader.destroy(request.file?.filename)
         return response.status(400).json({ error: error.details[0].message })
       }
-      const topic = new Topic(value)
 
+      const topic = new Topic({ ...value, filename: request.file?.filename })
       const topicResponse = await topicService.create(topic)
-
       return response.json(topicResponse)
     } catch (error: any) {
+      if (request.file)
+        await cloudinary.uploader.destroy(request.file?.filename)
       internalServer(response, error.message)
     }
   }
@@ -51,22 +62,39 @@ class CategoryController {
   async updateTopic(request: Request, response: Response) {
     try {
       const id = request.params.id
-      const { name } = request.body
 
-      const { error, value } = joi
-        .object({ id: idSchema, name: nameSchema })
-        .validate({ id, name })
+      const { error } = joi.object({ id: idSchema }).validate({ id })
+
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        if (request.file)
+          await cloudinary.uploader.destroy(request.file.filename)
+        return badRequest(response, error.details[0].message)
       }
 
-      const topic = new Topic({ id: value.id, name: value.name })
+      if (Object.keys(request.body).length === 0 && !request.file) {
+        return badRequest(
+          response,
+          'At least one field is required for the update.',
+        )
+      }
 
-      const topicResponse = await topicService.update(value.id, topic)
+      const image: { filename: string | undefined; image: string | undefined } =
+        {
+          filename: undefined,
+          image: undefined,
+        }
+
+      if (request.file) {
+        image.filename = request.file.filename
+        image.image = request.file.path
+      }
+      const topic = new Topic({ ...request.body, ...image, id })
+      const topicResponse = await topicService.update(+id, topic)
 
       return response.json(topicResponse)
     } catch (error: any) {
-      internalServer(response, error.message)
+      if (request.file) await cloudinary.uploader.destroy(request.file.filename)
+      return internalServer(response, error.message)
     }
   }
 
@@ -87,4 +115,4 @@ class CategoryController {
   }
 }
 
-export default new CategoryController()
+export default new TopicController()

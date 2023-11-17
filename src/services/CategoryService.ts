@@ -10,8 +10,8 @@ class CategoryService implements Service<Category> {
   getAll() {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await Category.findAll()
-        resolve(responseFindDatabase({ response: { categories: response } }))
+        const categories = await Category.findAll()
+        resolve(responseFindDatabase({ response: { categories: categories } }))
       } catch (error: any) {
         reject(internalSeverDatabase(error.message))
       }
@@ -21,15 +21,13 @@ class CategoryService implements Service<Category> {
   getById(id: number) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await Category.findByPk(id)
-        if (response) {
-          resolve(responseFindDatabase({ response: { category: response } }))
+        const category = await Category.findByPk(id)
+        if (category) {
+          resolve(responseFindDatabase({ response: { category: category } }))
         } else {
           resolve(notFoundDatabase('categories', id))
         }
       } catch (error: any) {
-        console.log(error)
-
         reject(internalSeverDatabase(error.message))
       }
     })

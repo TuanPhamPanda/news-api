@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { topicController } from '../../controllers'
+import { upload } from '../../middlewares'
 
 class TopicRouter {
   private _router: Router
@@ -12,9 +13,14 @@ class TopicRouter {
   private setUpRouter() {
     this._router.get('/', topicController.getAllTopic)
     this._router.get('/:id', topicController.getTopicById)
-    this._router.post('/', topicController.createTopic)
-    this._router.put('/:id', topicController.updateTopic)
     this._router.delete('/:id', topicController.deleteTopic)
+
+    this._router.post('/', upload.single('image'), topicController.createTopic)
+    this._router.put(
+      '/:id',
+      upload.single('image'),
+      topicController.updateTopic,
+    )
   }
 
   public get router(): Router {
