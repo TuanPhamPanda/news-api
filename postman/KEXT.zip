@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "7bf0b342-73c5-424b-873c-d26c3ec0a7f7",
+		"name": "news",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24733210"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "category",
+							"item": [
+								{
+									"name": "getAllCategory",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/category/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"category",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getCategoryById",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/category/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"category",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createCategory",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Tourismabc\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/category/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"category",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateCategory",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Entertainment\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/category/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"category",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "deleteCategory",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/category/1.23",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"category",
+												"1.23"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "topic",
+							"item": [
+								{
+									"name": "getAllTopic",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/topic",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"topic"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateTopic",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image",
+													"type": "file",
+													"src": "/C:/Users/ANH TUAN/Pictures/1.jpg"
+												},
+												{
+													"key": "title",
+													"value": "Heath 334569",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Heath",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/topic",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"topic"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getTopicById",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/topic/12",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"topic",
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "deleteTopic",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/v1/topic/13",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"topic",
+												"13"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateTopic",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image",
+													"type": "file",
+													"src": "/C:/Users/ANH TUAN/Pictures/2.jpg"
+												},
+												{
+													"key": "title",
+													"value": "Sport",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "u3882",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/v1/topic/13",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"v1",
+												"topic",
+												"13"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "socket",
+			"item": []
+		}
+	]
+}
