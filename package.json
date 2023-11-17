@@ -10,7 +10,11 @@
     "dev": "nodemon --exec ts-node index.ts",
     "prod": "NODE_ENV=production node ./dist/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "News API",
+    "RestfulAPI + Typescript + ORM Sequelize + Socket ",
+    "using cloudinary upload image"
+  ],
   "author": "Tuan Gau Truc",
   "license": "ISC",
   "dependencies": {
