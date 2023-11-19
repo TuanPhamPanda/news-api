@@ -55,7 +55,7 @@ class TopicController {
     } catch (error: any) {
       if (request.file)
         await cloudinary.uploader.destroy(request.file?.filename)
-      internalServer(response, error.message)
+      internalServer(response, error)
     }
   }
 
@@ -63,7 +63,7 @@ class TopicController {
     try {
       const id = request.params.id
 
-      const { error } = joi.object({ id: idSchema }).validate({ id })
+      const { error, value } = joi.object({ id: idSchema }).validate({ id })
 
       if (error) {
         if (request.file)
@@ -89,12 +89,12 @@ class TopicController {
         image.image = request.file.path
       }
       const topic = new Topic({ ...request.body, ...image, id })
-      const topicResponse = await topicService.update(+id, topic)
+      const topicResponse = await topicService.update(value.id, topic)
 
       return response.json(topicResponse)
     } catch (error: any) {
       if (request.file) await cloudinary.uploader.destroy(request.file.filename)
-      return internalServer(response, error.message)
+      return internalServer(response, error)
     }
   }
 
@@ -110,7 +110,7 @@ class TopicController {
       const data = await topicService.delete(value.id)
       return response.json(data)
     } catch (error: any) {
-      internalServer(response, error.message)
+      internalServer(response, error)
     }
   }
 }

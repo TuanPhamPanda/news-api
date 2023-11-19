@@ -79,7 +79,7 @@ class CategoryService implements Service<Category> {
       try {
         const [categoryData, created] = await Category.findOrCreate({
           where: { name: category.name },
-          defaults: { name: category.name },
+          defaults: category.dataValues,
         })
 
         resolve(
