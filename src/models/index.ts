@@ -12,6 +12,7 @@ import NormalUserDetail from './NormalUserDetail'
 import Role from './Role'
 import Topic from './Topic'
 import TopicDetail from './TopicDetail'
+import Normal from './Normal'
 import sequelize from './Sequelize'
 
 sequelize.sync({ force: false }).then(() => {
@@ -32,6 +33,7 @@ export {
   NormalUserDetail,
   Role,
   Topic,
+  Normal,
   TopicDetail,
   sequelize,
 }
