@@ -3,3 +3,4 @@ export { default as topicController } from './TopicController'
 export { default as roleController } from './RoleController'
 export { default as userController } from './UserController'
 export {default as authorizationController} from './AuthorizationController';
+export {default as newController} from './NewController';

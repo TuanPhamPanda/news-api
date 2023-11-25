@@ -1,7 +1,7 @@
 import { badRequest, internalServer } from '../middlewares'
 import { topicService } from '../services'
 import { Request, Response } from 'express'
-import { idSchema, imageSchema, stringSchema } from '../utils'
+import { integerSchema, imageSchema, stringSchema } from '../utils'
 import { Topic } from '../models'
 import joi from 'joi'
 import { cloudinary } from '../configs'
@@ -19,10 +19,10 @@ class TopicController {
   async getTopicById(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema.required() })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
       const topic = await topicService.getById(value.id)
       return response.json(topic)
@@ -46,8 +46,8 @@ class TopicController {
       if (error) {
         if (request.file)
           await cloudinary.uploader.destroy(request.file?.filename)
-        return response.status(400).json({ error: error.details[0].message })
-      }
+          return badRequest(response, error.details[0].message)
+        }
 
       const topic = new Topic({ ...value, filename: request.file?.filename })
       const topicResponse = await topicService.create(topic)
@@ -63,7 +63,7 @@ class TopicController {
     try {
       const id = request.params.id
 
-      const { error, value } = joi.object({ id: idSchema }).validate({ id })
+      const { error, value } = joi.object({ id: integerSchema.required() }).validate({ id })
 
       if (error) {
         if (request.file)
@@ -101,10 +101,10 @@ class TopicController {
   async deleteTopic(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema.required() })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
 
       const data = await topicService.delete(value.id)

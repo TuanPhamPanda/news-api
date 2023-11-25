@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import authRouterV1 from './v1/AuthorizationRoute'
 
-class AuthorizationRouter {
+class AuthorizationRoute {
   private _router: Router
   constructor() {
     this._router = Router()
@@ -13,4 +13,4 @@ class AuthorizationRouter {
   }
 }
 
-export default new AuthorizationRouter()
+export default new AuthorizationRoute()

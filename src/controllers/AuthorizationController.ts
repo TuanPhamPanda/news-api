@@ -20,6 +20,7 @@ class AuthorizationController {
                     username: stringSchema.min(6),
                     password: stringSchema.min(8),
                     phoneNumber: phoneNumberSchema,
+                    fullName: stringSchema,
                 })
                 .validate({ ...request.body })
             if (error) {
@@ -33,6 +34,7 @@ class AuthorizationController {
 
             const userData = {
                 phoneNumber: value.phoneNumber,
+                fullName: value.fullName,
             }
 
             const normal = new Normal({ ...normalData })

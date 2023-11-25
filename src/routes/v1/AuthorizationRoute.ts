@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { authorizationController } from '../../controllers'
 
-class AuthorizationRouter {
+class AuthorizationRoute {
     private _router: Router
 
     constructor() {
@@ -37,4 +37,4 @@ class AuthorizationRouter {
     }
 }
 
-export default new AuthorizationRouter()
+export default new AuthorizationRoute()

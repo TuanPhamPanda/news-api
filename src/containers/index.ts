@@ -19,7 +19,7 @@ const responseFindDatabase = (response: Response): Response => {
         err: response.err ?? 0,
     }
 
-    if (response.msg && typeof response.msg === 'string') {
+    if (response.msg) {
         result.msg = response.msg
     }
 
@@ -72,6 +72,20 @@ interface PayloadToken {
     exp: number
 }
 
+interface INewsAllParams {
+    orderType?: 'view' | 'recent'
+    limit?: number
+    author?: {
+        authorId: number
+    },
+    category?: {
+        categoryId: number
+    },
+    topic?: {
+        topicId: number
+    }
+}
+
 export {
     notFoundDatabase,
     internalSeverDatabase,
@@ -82,4 +96,5 @@ export {
     expirationTimeAccess,
     expirationTimeRefresh,
     PayloadToken,
+    INewsAllParams
 }

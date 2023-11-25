@@ -1,6 +1,6 @@
 import { badRequest, internalServer } from '../middlewares'
 import { Request, Response } from 'express'
-import { idSchema, stringSchema } from '../utils'
+import { integerSchema, stringSchema } from '../utils'
 import joi from 'joi'
 import { roleService } from '../services'
 import { Role } from '../models'
@@ -18,10 +18,10 @@ class RoleController {
   async getRoleById(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema.required() })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
       const role = await roleService.getById(value.id)
       return response.json(role)
@@ -36,7 +36,7 @@ class RoleController {
         .object({ name: stringSchema, description: stringSchema })
         .validate(request.body)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
 
       const role = new Role({ ...value })
@@ -54,7 +54,7 @@ class RoleController {
 
       const { value, error } = joi
         .object({
-          id: idSchema,
+          id: integerSchema.required(),
           name: joi.string(),
           description: joi.string(),
         })
@@ -77,10 +77,10 @@ class RoleController {
   async deleteRole(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema.required() })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
 
       const data = await roleService.delete(value.id)

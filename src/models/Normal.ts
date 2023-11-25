@@ -5,7 +5,6 @@ class Normal extends Model {
     declare id: number
     declare username: string
     declare password: string
-    declare image: string
     declare refreshToken: string
     declare createdAt: Date
     declare updatedAt: Date
@@ -25,10 +24,6 @@ Normal.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        image: {
-            type: DataTypes.STRING,
-            allowNull: true,
         },
         refreshToken: {
             type: DataTypes.STRING,

@@ -1,7 +1,7 @@
-import { internalServer } from '../middlewares'
+import { badRequest, internalServer } from '../middlewares'
 import categoryService from '../services/CategoryService'
 import { Request, Response } from 'express'
-import { idSchema, stringSchema } from '../utils'
+import { integerSchema, stringSchema } from '../utils'
 import { Category } from '../models'
 import joi from 'joi'
 
@@ -18,10 +18,10 @@ class CategoryController {
   async getCategoryById(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema.required() })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
       const category = await categoryService.getById(value.id)
       return response.json(category)
@@ -36,7 +36,7 @@ class CategoryController {
         .object({ name: stringSchema })
         .validate(request.body)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
       const category = new Category(value)
 
@@ -54,10 +54,10 @@ class CategoryController {
       const { name } = request.body
 
       const { error, value } = joi
-        .object({ id: idSchema, name: stringSchema })
+        .object({ id: integerSchema.required(), name: stringSchema })
         .validate({ id, name })
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
 
       const category = new Category({ id: value.id, name: value.name })
@@ -73,10 +73,10 @@ class CategoryController {
   async deleteCategory(request: Request, response: Response) {
     try {
       const { error, value } = joi
-        .object({ id: idSchema })
+        .object({ id: integerSchema })
         .validate(request.params)
       if (error) {
-        return response.status(400).json({ error: error.details[0].message })
+        return badRequest(response, error.details[0].message)
       }
 
       const data = await categoryService.delete(value.id)

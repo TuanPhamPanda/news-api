@@ -1,6 +1,7 @@
 import categoryRouter from './CategoryRouter'
 import topicRouter from './TopicRoute'
 import routeRote from './RoleRoute'
+import newRoute from './NewRoute'
 import { Router } from 'express'
 import userRouter from './UserRouter'
 import { authorization } from '../../middlewares'
@@ -12,6 +13,7 @@ class NewRouterV1 {
         this._router = Router()
         this._router.use('/category', categoryRouter.router)
         this._router.use('/topic', topicRouter.router)
+        this._router.use('/new', newRoute.router)
         this._router.use(
             '/role',
             //Xác thực

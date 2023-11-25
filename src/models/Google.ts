@@ -11,7 +11,6 @@ class Google extends Model {
   declare email_verified: string
   declare azp: string
   declare name: string
-  declare picture: string
   declare given_name: string
   declare family_name: string
   declare iat: string
@@ -58,10 +57,6 @@ Google.init(
       allowNull: false,
     },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    picture: {
       type: DataTypes.STRING,
       allowNull: false,
     },

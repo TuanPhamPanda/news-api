@@ -6,7 +6,9 @@ class User extends Model {
     declare id: number
     declare bio: string
     declare phoneNumber: string
+    declare fullName: string
     declare idRole: number
+    declare image: string
     declare website: string
     declare createdAt: Date
     declare updatedAt: Date
@@ -28,7 +30,15 @@ User.init(
             allowNull: true,
             validate: { len: [10, 10] },
         },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         website: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        image: {
             type: DataTypes.STRING,
             allowNull: true,
         },

@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import bodyParser from 'body-parser'
-import authorRouter from './src/routes/AuthorizationRouter'
+import authorRoute from './src/routes/AuthorizationRoute'
 
 class AuthorizationSever {
     private app: Express
@@ -27,7 +27,7 @@ class AuthorizationSever {
             next()
         })
 
-        this.app.use('/api', authorRouter.router)
+        this.app.use('/api', authorRoute.router)
     }
 
     public startSever() {
