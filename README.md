@@ -13,6 +13,11 @@
 </details>
 
 <details open>
+    <summary><h2>API</h2></summary>
+  - import file json from folder postman to postman application
+</details>
+
+<details open>
   <summary><h2>Script running</h2></summary>
 
  - build: `tsc`<br />
